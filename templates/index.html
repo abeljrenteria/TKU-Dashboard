@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html></html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>TKU_Dashboard</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script type= "text/javascript" src="{{ url_for('static', filename='js/chosen.jquery.min.js') }}"></script>
+        <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/chosen.min.css') }}">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#mselect').chosen();
+            });
+            $(document).ready(function(){
+                $('#mselect1').chosen();
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div>
+                <h1 class="heading">Tech Kids Unlimited - Dashboard</h1>
+            </div>
+        </div>
+        <br>
+        <div class="content-filter">
+            <div class="div-block-6">
+                <form method="POST" action="/" id="year-form">
+                    <div class="col-3">
+                        <label for="Year-Options">Choose a year:</label>
+                        <select id="mselect" multiple="" style="width: 300px;" form="year-form" name="year">
+                            <option value="2019" name="year">2019</option>
+                            <option value="2020" name="year">2020</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="Program-Options">Choose a program:</label>
+                        <select id="mselect1" multiple="" style="width: 300px;" form="year-form" name="program">
+                            <option value="Kids" name="program">Kids</option>
+                            <option value="Teens" name="program">Teens (Tweens/Teens)</option>
+                            <option value="Advanced" name="program">Advanced (Teens/YA)</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input type="submit" style="width: 200px;">
+                    </div>
+                </form> 
+            </div> 
+        </div>
+        <div class="content-year">
+            <div class="mini-header">
+                <h3 class="heading-2">Fiscal Year: {{variable1}} - {{variable2}}</h3>
+            </div>
+            <div>
+                <div class="div-block-3">
+                    <div class="div-block-2"><div id='graph-0'></div></div>
+                    <div class="div-block-2"><div id='graph-1'></div></div>
+                    <div class="div-block-2"><div id='graph-2'></div></div>
+                    <div class="div-block-2"><div id='graph-3'></div></div>
+                    <div class="div-block-2"><div id='graph-4'></div></div>
+                    <div class="div-block-2"><div id='graph-5'></div></div>
+                </div>
+                <div class="div-block-4">
+                    <div class="col-2">
+                        <div style="margin: 5px"><div id='graph-6'></div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="col-2">
+                        <div style="margin: 5px"><div id='graph-7'></div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-period">
+            <div class="div-block-6">
+                <div class="div-block-6">
+                    <div class="col-3">
+                        <div class="mini-header">
+                            <h3 class="heading-2">Spring</h3>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mini-header">
+                            <h3 class="heading-2">Summer</h3>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mini-header">
+                            <h3 class="heading-2">Fall</h3>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div class="indicators">
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                            <div class="col-3-a"></div>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+        <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js?site=5ec2fc3e07b7da66e823356d" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFLBw8HfCJo=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            var graphs = {{graphJSON | safe}};
+            var ids = {{ids | safe}};
+            var config = {responsive: true};
+            for(var i in graphs){
+                Plotly.plot(ids[i], graphs[i].data, graphs[i].layout, config)
+            }
+        </script>
+    </body>
+</html>
