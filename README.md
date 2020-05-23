@@ -1,5 +1,6 @@
 # TKU-Dashboard
+Web app created for the Tech Kids Unlimited organization.
+The web app is an analytic dashboard displaying data relevent to the organization.
+Created using Flask & Plotly and deployed on Heroku. 
 
-Analytic Dashboard created using Flask & Plotly and deployed on Heroku. 
-
-[a link](https://tku-dashboard.herokuapp.com/)
+[TKU Dashboard](https://tku-dashboard.herokuapp.com/)
